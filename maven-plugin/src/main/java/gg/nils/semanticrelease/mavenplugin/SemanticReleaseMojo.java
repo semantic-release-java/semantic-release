@@ -1,6 +1,5 @@
 package gg.nils.semanticrelease.mavenplugin;
 
-import gg.nils.semanticrelease.api.Commit;
 import gg.nils.semanticrelease.api.VersionImpl;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfigImpl;

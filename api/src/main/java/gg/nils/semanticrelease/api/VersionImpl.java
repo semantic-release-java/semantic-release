@@ -1,6 +1,6 @@
 package gg.nils.semanticrelease.api;
 
-import lombok.Builder;
+import java.util.Objects;
 
 public class VersionImpl implements Version {
 
@@ -72,5 +72,18 @@ public class VersionImpl implements Version {
     @Override
     public String toString() {
         return this.major + "." + this.minor + "." + this.patch;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        VersionImpl version = (VersionImpl) o;
+        return this.major == version.major && this.minor == version.minor && this.patch == version.patch && Objects.equals(this.tag, version.tag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.tag, this.major, this.minor, this.patch);
     }
 }
