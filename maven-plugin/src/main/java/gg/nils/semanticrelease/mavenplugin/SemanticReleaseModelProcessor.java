@@ -95,6 +95,7 @@ public class SemanticReleaseModelProcessor extends DefaultModelProcessor {
 
                 VersionControlProvider versionControlProvider = new GitVersionControlProvider(config, git);
 
+                this.logger.info("Current branch: " + versionControlProvider.getCurrentBranch());
                 this.logger.info("Actual version: " + model.getVersion());
                 this.logger.info("Latest version: " + versionControlProvider.getLatestVersion());
                 this.logger.info("Next version: " + versionControlProvider.getNextVersion());

@@ -7,6 +7,7 @@ import gg.nils.semanticrelease.api.versioncontrol.VersionControlProviderImpl;
 import gg.nils.semanticrelease.api.versioncontrol.git.converter.*;
 import lombok.Setter;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -79,6 +80,17 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
             return this.gitRefsToTagsConverter.convert(refs);
         } catch (GitAPIException e) {
             throw new SemanticReleaseException("Could not get tags", e);
+        }
+    }
+
+    @Override
+    public Branch getCurrentBranch() {
+        try {
+            String branch = this.git.getRepository().getBranch();
+
+            return new BranchImpl(branch);
+        } catch (IOException e) {
+            throw new SemanticReleaseException("Could not get current branch", e);
         }
     }
 }

@@ -1,9 +1,6 @@
 package gg.nils.semanticrelease.api.versioncontrol;
 
-import gg.nils.semanticrelease.api.Commit;
-import gg.nils.semanticrelease.api.RawCommit;
-import gg.nils.semanticrelease.api.Tag;
-import gg.nils.semanticrelease.api.Version;
+import gg.nils.semanticrelease.api.*;
 
 import java.util.List;
 
@@ -18,6 +15,8 @@ public interface VersionControlProvider {
     List<Tag> getTags();
 
     Tag getLatestTag();
+
+    Branch getCurrentBranch();
 
     Version getLatestVersion();
 
