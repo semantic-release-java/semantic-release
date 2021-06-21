@@ -23,4 +23,6 @@ public interface VersionControlProvider {
     Version getLatestVersion();
 
     Version getNextVersion();
+
+    String getFullVersion();
 }

@@ -99,8 +99,9 @@ public class SemanticReleaseModelProcessor extends DefaultModelProcessor {
                 this.logger.info("Actual version: " + model.getVersion());
                 this.logger.info("Latest version: " + versionControlProvider.getLatestVersion());
                 this.logger.info("Next version: " + versionControlProvider.getNextVersion());
+                this.logger.info("Full version: " + versionControlProvider.getFullVersion());
 
-                model.setVersion(versionControlProvider.getNextVersion().toString());
+                model.setVersion(versionControlProvider.getFullVersion());
             }
         } catch (Throwable t) {
             //throw new MojoFailureException("semantic-release failed", t);
