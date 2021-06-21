@@ -33,8 +33,11 @@ public class NextVersionCalculatorImpl implements NextVersionCalculator {
 
         if (breakingChanges > 0) {
             latestVersion.incMajor();
+            latestVersion.setMinor(0);
+            latestVersion.setPatch(0);
         } else if (features > 0) {
             latestVersion.incMinor();
+            latestVersion.setPatch(0);
         } else if (patches > 0) {
             latestVersion.incPatch();
         }
