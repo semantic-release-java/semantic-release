@@ -5,7 +5,7 @@
     <parent>
         <artifactId>semantic-release</artifactId>
         <groupId>gg.nils</groupId>
-        <version>1.0.1</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>maven-plugin</packaging>
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>gg.nils</groupId>
             <artifactId>semantic-release-api</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

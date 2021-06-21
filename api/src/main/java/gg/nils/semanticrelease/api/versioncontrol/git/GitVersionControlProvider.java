@@ -25,7 +25,6 @@ import gg.nils.semanticrelease.api.versioncontrol.git.converter.*;
 import lombok.Setter;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
-import org.eclipse.jgit.api.StatusCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -33,6 +32,9 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GitVersionControlProvider extends VersionControlProviderImpl {
 
@@ -75,7 +77,7 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
     @Override
     public List<RawCommit> getRawCommitsSince(Version version) {
         // When tag is null there is probably no tag yet and SemanticReleaseConfig#getFirstVersion is used
-        if(version.getTag() == null)
+        if (version.getTag() == null)
             return this.getRawCommits();
 
         try {
@@ -85,7 +87,7 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
             Iterable<RevCommit> revCommits = this.git.log().addRange(since, until).call();
 
             return this.gitRevCommitsToRawCommitsConverter.convert(revCommits);
-        } catch (GitAPIException|IOException e) {
+        } catch (GitAPIException | IOException e) {
             throw new SemanticReleaseException("Could not get commits since " + version, e);
         }
     }
@@ -96,6 +98,34 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
             List<Ref> refs = this.git.tagList().call();
 
             return this.gitRefsToTagsConverter.convert(refs);
+        } catch (GitAPIException e) {
+            throw new SemanticReleaseException("Could not get tags", e);
+        }
+    }
+
+    @Override
+    public Tag getLatestTag() {
+        try {
+            String call = this.git.describe().setTags(true).setLong(true).call();
+
+            if (call == null)
+                return null;
+
+            Matcher matcher = Pattern.compile("(.+)-(.+)-(.+)$").matcher(call);
+
+            String version;
+
+            if (!matcher.find()) {
+                version = call;
+            } else {
+                version = matcher.group(1);
+            }
+
+            Optional<Tag> optionalTag = this.getTags().stream()
+                    .filter(tag -> tag.getName().equals(version))
+                    .findFirst();
+
+            return optionalTag.orElseThrow(() -> new SemanticReleaseException("Could not find any matching tag from describe: " + call));
         } catch (GitAPIException e) {
             throw new SemanticReleaseException("Could not get tags", e);
         }

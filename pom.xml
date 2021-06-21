@@ -7,7 +7,7 @@
     <groupId>gg.nils</groupId>
     <artifactId>semantic-release</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <modules>
         <module>api</module>

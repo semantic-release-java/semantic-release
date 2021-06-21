@@ -209,4 +209,11 @@ class GitVersionControlProviderTest {
         this.provider.setGitRevCommitToRawCommitConverter(gitRevCommitToRawCommitConverter);
         this.provider.setGitRevCommitsToRawCommitsConverter(new DefaultGitRevCommitsToRawCommitsConverter(gitRevCommitToRawCommitConverter));
     }
+
+    @Test
+    void getLatestTag() {
+        Tag latestTag = this.provider.getLatestTag();
+
+        assertEquals(latestTag.getName(), "1.0.1");
+    }
 }

@@ -63,6 +63,7 @@ public class SemanticReleaseExtension extends AbstractMavenLifecycleParticipant 
 
             this.logger.info("Current branch: " + versionControlProvider.getCurrentBranch());
             this.logger.info("Actual version: " + session.getCurrentProject().getVersion());
+            this.logger.info("Latest tag: " + versionControlProvider.getLatestTag());
             this.logger.info("Latest version: " + versionControlProvider.getLatestVersion());
             this.logger.info("Next version: " + versionControlProvider.getNextVersion());
             this.logger.info("Full version: " + versionControlProvider.getFullVersion());

@@ -98,6 +98,11 @@ class VersionControlProviderImplTest {
             }
 
             @Override
+            public Tag getLatestTag() {
+                return TagImpl.builder().commitId("13").name("2.0.0").build();
+            }
+
+            @Override
             public Branch getCurrentBranch() {
                 return new BranchImpl("main");
             }
@@ -122,6 +127,11 @@ class VersionControlProviderImplTest {
             @Override
             public List<Tag> getTags() {
                 return Collections.emptyList();
+            }
+
+            @Override
+            public Tag getLatestTag() {
+                return null;
             }
 
             @Override

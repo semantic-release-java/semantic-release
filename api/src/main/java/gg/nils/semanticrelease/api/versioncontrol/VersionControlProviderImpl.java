@@ -60,16 +60,6 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
     }
 
     @Override
-    public Tag getLatestTag() {
-        List<Tag> tags = this.getTags();
-
-        if (tags == null || tags.isEmpty())
-            return null;
-
-        return tags.get(tags.size() - 1);
-    }
-
-    @Override
     public Version getLatestVersion() {
         Tag latestTag = this.getLatestTag();
 

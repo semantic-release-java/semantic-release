@@ -20,14 +20,19 @@ package gg.nils.semanticrelease.api.versioncontrol.git.converter;
 import gg.nils.semanticrelease.api.Tag;
 import gg.nils.semanticrelease.api.TagImpl;
 import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 
 public class DefaultGitRefToTagConverter implements GitRefToTagConverter {
 
     @Override
     public Tag convert(Ref ref) {
+        ObjectId objectId = ref.getPeeledObjectId() != null
+                ? ref.getPeeledObjectId()
+                : ref.getObjectId();
+
         return TagImpl.builder()
-                .commitId(ref.getObjectId().getName())
+                .commitId(objectId.getName())
                 .name(ref.getName().replaceAll(Constants.R_TAGS, ""))
                 .build();
     }
