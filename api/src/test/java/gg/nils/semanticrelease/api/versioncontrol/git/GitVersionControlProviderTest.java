@@ -7,9 +7,7 @@ import gg.nils.semanticrelease.api.error.SemanticReleaseException;
 import gg.nils.semanticrelease.api.versioncontrol.git.converter.*;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -20,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -187,12 +184,12 @@ class GitVersionControlProviderTest {
 
     @Test
     void setConverter() {
-        GitRefToTagConverterImpl gitRefToTagConverter = new GitRefToTagConverterImpl();
+        DefaultGitRefToTagConverter gitRefToTagConverter = new DefaultGitRefToTagConverter();
         this.provider.setGitRefToTagConverter(gitRefToTagConverter);
-        this.provider.setGitRefsToTagsConverter(new GitRefsToTagsConverterImpl(gitRefToTagConverter));
+        this.provider.setGitRefsToTagsConverter(new DefaultGitRefsToTagsConverter(gitRefToTagConverter));
 
-        GitRevCommitToRawCommitConverterImpl gitRevCommitToRawCommitConverter = new GitRevCommitToRawCommitConverterImpl();
+        DefaultGitRevCommitToRawCommitConverter gitRevCommitToRawCommitConverter = new DefaultGitRevCommitToRawCommitConverter();
         this.provider.setGitRevCommitToRawCommitConverter(gitRevCommitToRawCommitConverter);
-        this.provider.setGitRevCommitsToRawCommitsConverter(new GitRevCommitsToRawCommitsConverterImpl(gitRevCommitToRawCommitConverter));
+        this.provider.setGitRevCommitsToRawCommitsConverter(new DefaultGitRevCommitsToRawCommitsConverter(gitRevCommitToRawCommitConverter));
     }
 }

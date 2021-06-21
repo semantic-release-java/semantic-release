@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TagToVersionConverterImplTest {
+class DefaultTagToVersionConverterTest {
 
     @Test
     void convert() {
-        TagToVersionConverter converter = new TagToVersionConverterImpl();
+        TagToVersionConverter converter = new DefaultTagToVersionConverter();
 
         Tag tag = TagImpl.builder()
                 .commitId("1")
@@ -39,7 +39,7 @@ class TagToVersionConverterImplTest {
 
     @Test
     void convertInvalidVersion() {
-        TagToVersionConverter converter = new TagToVersionConverterImpl();
+        TagToVersionConverter converter = new DefaultTagToVersionConverter();
 
         Tag tag = TagImpl.builder()
                 .commitId("1")
@@ -53,7 +53,7 @@ class TagToVersionConverterImplTest {
 
     @Test
     void convertNumberFormat() {
-        TagToVersionConverter converter = new TagToVersionConverterImpl();
+        TagToVersionConverter converter = new DefaultTagToVersionConverter();
 
         Tag tag = TagImpl.builder()
                 .commitId("1")

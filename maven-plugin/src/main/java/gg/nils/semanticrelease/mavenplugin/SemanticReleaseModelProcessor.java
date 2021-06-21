@@ -1,6 +1,7 @@
 package gg.nils.semanticrelease.mavenplugin;
 
 import gg.nils.semanticrelease.api.VersionImpl;
+import gg.nils.semanticrelease.api.config.DefaultSemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfigImpl;
 import gg.nils.semanticrelease.api.error.SemanticReleaseException;
@@ -90,11 +91,7 @@ public class SemanticReleaseModelProcessor extends DefaultModelProcessor {
                 Git git = new Git(repository);
 
                 // TODO: 21.06.2021 Make configurable via .mvn/semantic-release.config.json
-                SemanticReleaseConfig config = SemanticReleaseConfigImpl.builder()
-                        .firstVersion(new VersionImpl(null, 1, 0, 0))
-                        .featureTypes(Collections.singletonList("feat"))
-                        .patchTypes(Collections.singletonList("fix"))
-                        .build();
+                SemanticReleaseConfig config = new DefaultSemanticReleaseConfig();
 
                 VersionControlProvider versionControlProvider = new GitVersionControlProvider(config, git);
 

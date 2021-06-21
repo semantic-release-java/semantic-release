@@ -7,11 +7,11 @@ import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import java.util.List;
 import java.util.Locale;
 
-public class NextVersionCalculatorImpl implements NextVersionCalculator {
+public class DefaultNextVersionCalculator implements NextVersionCalculator {
 
     private final SemanticReleaseConfig config;
 
-    public NextVersionCalculatorImpl(SemanticReleaseConfig config) {
+    public DefaultNextVersionCalculator(SemanticReleaseConfig config) {
         this.config = config;
     }
 

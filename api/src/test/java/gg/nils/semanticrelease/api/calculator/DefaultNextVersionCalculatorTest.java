@@ -8,14 +8,13 @@ import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfigImpl;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NextVersionCalculatorImplTest {
+class DefaultNextVersionCalculatorTest {
 
     @Test
     void calculateNoChange() {
@@ -25,7 +24,7 @@ class NextVersionCalculatorImplTest {
                 .patchTypes(Collections.singletonList("fix"))
                 .build();
 
-        NextVersionCalculator calculator = new NextVersionCalculatorImpl(config);
+        NextVersionCalculator calculator = new DefaultNextVersionCalculator(config);
 
         Version inputVersion = new VersionImpl(null, 1, 0, 0);
 
@@ -42,7 +41,7 @@ class NextVersionCalculatorImplTest {
                 .patchTypes(Collections.singletonList("fix"))
                 .build();
 
-        NextVersionCalculator calculator = new NextVersionCalculatorImpl(config);
+        NextVersionCalculator calculator = new DefaultNextVersionCalculator(config);
 
         Version inputVersion = new VersionImpl(null, 1, 0, 0);
 
@@ -63,7 +62,7 @@ class NextVersionCalculatorImplTest {
                 .patchTypes(Collections.singletonList("fix"))
                 .build();
 
-        NextVersionCalculator calculator = new NextVersionCalculatorImpl(config);
+        NextVersionCalculator calculator = new DefaultNextVersionCalculator(config);
 
         Version inputVersion = new VersionImpl(null, 1, 0, 0);
 
@@ -84,7 +83,7 @@ class NextVersionCalculatorImplTest {
                 .patchTypes(Collections.singletonList("fix"))
                 .build();
 
-        NextVersionCalculator calculator = new NextVersionCalculatorImpl(config);
+        NextVersionCalculator calculator = new DefaultNextVersionCalculator(config);
 
         Version inputVersion = new VersionImpl(null, 1, 0, 0);
 
@@ -105,7 +104,7 @@ class NextVersionCalculatorImplTest {
                 .patchTypes(Collections.singletonList("fix"))
                 .build();
 
-        NextVersionCalculator calculator = new NextVersionCalculatorImpl(config);
+        NextVersionCalculator calculator = new DefaultNextVersionCalculator(config);
 
         Version inputVersion = new VersionImpl(null, 1, 0, 0);
 

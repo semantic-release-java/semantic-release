@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class GitRevCommitsToRawCommitsConverterImpl implements GitRevCommitsToRawCommitsConverter {
+public class DefaultGitRevCommitsToRawCommitsConverter implements GitRevCommitsToRawCommitsConverter {
 
     private final GitRevCommitToRawCommitConverter gitRevCommitToRawCommitConverter;
 
-    public GitRevCommitsToRawCommitsConverterImpl(GitRevCommitToRawCommitConverter gitRevCommitToRawCommitConverter) {
+    public DefaultGitRevCommitsToRawCommitsConverter(GitRevCommitToRawCommitConverter gitRevCommitToRawCommitConverter) {
         this.gitRevCommitToRawCommitConverter = gitRevCommitToRawCommitConverter;
     }
 

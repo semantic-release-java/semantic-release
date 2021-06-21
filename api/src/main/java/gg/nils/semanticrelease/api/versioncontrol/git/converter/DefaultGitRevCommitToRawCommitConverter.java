@@ -4,7 +4,7 @@ import gg.nils.semanticrelease.api.RawCommit;
 import gg.nils.semanticrelease.api.RawCommitImpl;
 import org.eclipse.jgit.revwalk.RevCommit;
 
-public class GitRevCommitToRawCommitConverterImpl implements GitRevCommitToRawCommitConverter {
+public class DefaultGitRevCommitToRawCommitConverter implements GitRevCommitToRawCommitConverter {
 
     @Override
     public RawCommit convert(RevCommit revCommit) {

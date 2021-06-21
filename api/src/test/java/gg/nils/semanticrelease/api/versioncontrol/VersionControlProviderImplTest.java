@@ -1,12 +1,12 @@
 package gg.nils.semanticrelease.api.versioncontrol;
 
 import gg.nils.semanticrelease.api.*;
-import gg.nils.semanticrelease.api.calculator.NextVersionCalculatorImpl;
+import gg.nils.semanticrelease.api.calculator.DefaultNextVersionCalculator;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfigImpl;
-import gg.nils.semanticrelease.api.versioncontrol.converter.RawCommitToCommitConverterImpl;
-import gg.nils.semanticrelease.api.versioncontrol.converter.RawCommitsToCommitsConverterImpl;
-import gg.nils.semanticrelease.api.versioncontrol.converter.TagToVersionConverterImpl;
+import gg.nils.semanticrelease.api.versioncontrol.converter.DefaultRawCommitToCommitConverter;
+import gg.nils.semanticrelease.api.versioncontrol.converter.DefaultRawCommitsToCommitsConverter;
+import gg.nils.semanticrelease.api.versioncontrol.converter.DefaultTagToVersionConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -179,11 +179,11 @@ class VersionControlProviderImplTest {
 
     @Test
     void setConverterManually() {
-        this.emptyProvider.setTagToVersionConverter(new TagToVersionConverterImpl());
-        RawCommitToCommitConverterImpl rawCommitToCommitConverter = new RawCommitToCommitConverterImpl();
+        this.emptyProvider.setTagToVersionConverter(new DefaultTagToVersionConverter());
+        DefaultRawCommitToCommitConverter rawCommitToCommitConverter = new DefaultRawCommitToCommitConverter();
         this.emptyProvider.setRawCommitToCommitConverter(rawCommitToCommitConverter);
-        this.emptyProvider.setRawCommitsToCommitsConverter(new RawCommitsToCommitsConverterImpl(rawCommitToCommitConverter));
-        this.emptyProvider.setNextVersionCalculator(new NextVersionCalculatorImpl(this.config));
+        this.emptyProvider.setRawCommitsToCommitsConverter(new DefaultRawCommitsToCommitsConverter(rawCommitToCommitConverter));
+        this.emptyProvider.setNextVersionCalculator(new DefaultNextVersionCalculator(this.config));
 
         assertNotNull(this.emptyProvider);
     }

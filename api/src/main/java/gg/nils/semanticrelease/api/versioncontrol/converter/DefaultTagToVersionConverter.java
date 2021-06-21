@@ -5,7 +5,7 @@ import gg.nils.semanticrelease.api.Version;
 import gg.nils.semanticrelease.api.VersionImpl;
 import gg.nils.semanticrelease.api.error.SemanticReleaseException;
 
-public class TagToVersionConverterImpl implements TagToVersionConverter {
+public class DefaultTagToVersionConverter implements TagToVersionConverter {
 
     @Override
     public Version convert(Tag tag) {

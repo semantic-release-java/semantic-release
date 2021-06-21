@@ -5,18 +5,14 @@ import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.error.SemanticReleaseException;
 import gg.nils.semanticrelease.api.versioncontrol.VersionControlProviderImpl;
 import gg.nils.semanticrelease.api.versioncontrol.git.converter.*;
-import lombok.Getter;
 import lombok.Setter;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GitVersionControlProvider extends VersionControlProviderImpl {
@@ -40,10 +36,10 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
 
         this.git = git;
 
-        this.gitRevCommitToRawCommitConverter = new GitRevCommitToRawCommitConverterImpl();
-        this.gitRevCommitsToRawCommitsConverter = new GitRevCommitsToRawCommitsConverterImpl(this.gitRevCommitToRawCommitConverter);
-        this.gitRefToTagConverter = new GitRefToTagConverterImpl();
-        this.gitRefsToTagsConverter = new GitRefsToTagsConverterImpl(this.gitRefToTagConverter);
+        this.gitRevCommitToRawCommitConverter = new DefaultGitRevCommitToRawCommitConverter();
+        this.gitRevCommitsToRawCommitsConverter = new DefaultGitRevCommitsToRawCommitsConverter(this.gitRevCommitToRawCommitConverter);
+        this.gitRefToTagConverter = new DefaultGitRefToTagConverter();
+        this.gitRefsToTagsConverter = new DefaultGitRefsToTagsConverter(this.gitRefToTagConverter);
     }
 
     @Override

@@ -5,7 +5,7 @@ import gg.nils.semanticrelease.api.TagImpl;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Ref;
 
-public class GitRefToTagConverterImpl implements GitRefToTagConverter {
+public class DefaultGitRefToTagConverter implements GitRefToTagConverter {
 
     @Override
     public Tag convert(Ref ref) {

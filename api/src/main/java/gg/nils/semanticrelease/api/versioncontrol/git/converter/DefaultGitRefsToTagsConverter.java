@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class GitRefsToTagsConverterImpl implements GitRefsToTagsConverter {
+public class DefaultGitRefsToTagsConverter implements GitRefsToTagsConverter {
 
     private final GitRefToTagConverter gitRefToTagConverter;
 
-    public GitRefsToTagsConverterImpl(GitRefToTagConverter gitRefToTagConverter) {
+    public DefaultGitRefsToTagsConverter(GitRefToTagConverter gitRefToTagConverter) {
         this.gitRefToTagConverter = gitRefToTagConverter;
     }
 

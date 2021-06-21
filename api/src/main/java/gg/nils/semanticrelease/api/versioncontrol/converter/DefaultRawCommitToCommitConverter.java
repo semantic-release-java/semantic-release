@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RawCommitToCommitConverterImpl implements RawCommitToCommitConverter {
+public class DefaultRawCommitToCommitConverter implements RawCommitToCommitConverter {
 
     private static final Pattern MESSAGE_REGEX = Pattern.compile("^(?<type>\\w+)(?:\\((?<scope>[^()]+)\\))?(?<breaking>!)?:\\s*(?<subject>.+)");
 

@@ -14,8 +14,8 @@ class RawCommitsToCommitsConverterImplTest {
 
     @Test
     void convert() {
-        RawCommitToCommitConverter baseConverter = new RawCommitToCommitConverterImpl();
-        RawCommitsToCommitsConverter converter = new RawCommitsToCommitsConverterImpl(baseConverter);
+        RawCommitToCommitConverter baseConverter = new DefaultRawCommitToCommitConverter();
+        RawCommitsToCommitsConverter converter = new DefaultRawCommitsToCommitsConverter(baseConverter);
 
         List<RawCommit> rawCommits = Arrays.asList(
                 RawCommitImpl.builder().commitId("1").message("Initial commit").build(),

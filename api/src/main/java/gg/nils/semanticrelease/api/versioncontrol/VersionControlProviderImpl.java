@@ -4,7 +4,7 @@ import gg.nils.semanticrelease.api.Commit;
 import gg.nils.semanticrelease.api.Tag;
 import gg.nils.semanticrelease.api.Version;
 import gg.nils.semanticrelease.api.calculator.NextVersionCalculator;
-import gg.nils.semanticrelease.api.calculator.NextVersionCalculatorImpl;
+import gg.nils.semanticrelease.api.calculator.DefaultNextVersionCalculator;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.versioncontrol.converter.*;
 import lombok.Setter;
@@ -30,10 +30,10 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
     protected VersionControlProviderImpl(SemanticReleaseConfig config) {
         this.config = config;
 
-        this.tagToVersionConverter = new TagToVersionConverterImpl();
-        this.rawCommitToCommitConverter = new RawCommitToCommitConverterImpl();
-        this.rawCommitsToCommitsConverter = new RawCommitsToCommitsConverterImpl(this.rawCommitToCommitConverter);
-        this.nextVersionCalculator = new NextVersionCalculatorImpl(config);
+        this.tagToVersionConverter = new DefaultTagToVersionConverter();
+        this.rawCommitToCommitConverter = new DefaultRawCommitToCommitConverter();
+        this.rawCommitsToCommitsConverter = new DefaultRawCommitsToCommitsConverter(this.rawCommitToCommitConverter);
+        this.nextVersionCalculator = new DefaultNextVersionCalculator(config);
     }
 
     @Override

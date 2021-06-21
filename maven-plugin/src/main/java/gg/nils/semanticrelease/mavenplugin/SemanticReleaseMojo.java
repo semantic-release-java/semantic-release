@@ -1,6 +1,7 @@
 package gg.nils.semanticrelease.mavenplugin;
 
 import gg.nils.semanticrelease.api.VersionImpl;
+import gg.nils.semanticrelease.api.config.DefaultSemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfig;
 import gg.nils.semanticrelease.api.config.SemanticReleaseConfigImpl;
 import gg.nils.semanticrelease.api.versioncontrol.VersionControlProvider;
@@ -43,11 +44,7 @@ public class SemanticReleaseMojo extends AbstractMojo {
             try (Repository repository = repositoryBuilder.build()) {
                 Git git = new Git(repository);
 
-                SemanticReleaseConfig config = SemanticReleaseConfigImpl.builder()
-                        .firstVersion(new VersionImpl(null, 1, 0, 0))
-                        .featureTypes(Collections.singletonList("feat"))
-                        .patchTypes(Collections.singletonList("fix"))
-                        .build();
+                SemanticReleaseConfig config = new DefaultSemanticReleaseConfig();
 
                 VersionControlProvider versionControlProvider = new GitVersionControlProvider(config, git);
 
