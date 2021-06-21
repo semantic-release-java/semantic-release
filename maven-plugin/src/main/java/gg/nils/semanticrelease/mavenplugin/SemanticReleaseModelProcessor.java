@@ -36,6 +36,8 @@ public class SemanticReleaseModelProcessor extends DefaultModelProcessor {
 
     private final Logger logger = LoggerFactory.getLogger(SemanticReleaseModelProcessor.class);
 
+    private boolean versionModified = false;
+
     @Override
     public Model read(File input, Map<String, ?> options) throws IOException {
         Model model = super.read(input, options);
@@ -72,9 +74,17 @@ public class SemanticReleaseModelProcessor extends DefaultModelProcessor {
         FileModelSource source = (FileModelSource) sourceOption;
 
         // TODO: determine which one is the project pom
-        if (model.getGroupId() == null || !model.getGroupId().equals("gg.nils")) {
+        // if (model.getGroupId() == null || !model.getGroupId().equals("gg.nils")) {
+        //    return model;
+        //}
+
+        if(this.versionModified) {
             return model;
         }
+
+        this.logger.info("Modify model {}", model);
+
+        this.versionModified = true;
 
         model.setPomFile(new File(source.getLocation()));
 
