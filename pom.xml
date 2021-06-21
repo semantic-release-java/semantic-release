@@ -14,16 +14,33 @@
         <module>maven-plugin</module>
     </modules>
 
+    <name>semantic-release</name>
+    <description>A semantic-release Plugin for Maven</description>
+    <url>https://github.com/thenilsdev/semantic-release</url>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>nils</name>
+            <email>contact@ni.ls</email>
+            <url>https://ni.ls</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/thenilsdev/semantic-release.git</connection>
+        <developerConnection>scm:git:ssh://github.com:thenilsdev/semantic-release.git</developerConnection>
+        <url>https://github.com/thenilsdev/semantic-release/tree/master</url>
+    </scm>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.12.0.202106070339-r</version>
-        </dependency>
-    </dependencies>
 </project>
