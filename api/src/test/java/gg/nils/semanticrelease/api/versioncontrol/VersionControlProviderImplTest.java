@@ -84,6 +84,11 @@ class VersionControlProviderImplTest {
             public Branch getCurrentBranch() {
                 return new BranchImpl("main");
             }
+
+            @Override
+            public boolean hasUncommittedChanges() {
+                return false;
+            }
         };
 
         this.emptyProvider = new VersionControlProviderImpl(this.config) {
@@ -105,6 +110,11 @@ class VersionControlProviderImplTest {
             @Override
             public Branch getCurrentBranch() {
                 return null;
+            }
+
+            @Override
+            public boolean hasUncommittedChanges() {
+                return false;
             }
         };
     }

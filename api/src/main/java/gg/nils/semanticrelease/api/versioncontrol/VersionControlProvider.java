@@ -18,6 +18,8 @@ public interface VersionControlProvider {
 
     Branch getCurrentBranch();
 
+    boolean hasUncommittedChanges();
+
     Version getLatestVersion();
 
     Version getNextVersion();
