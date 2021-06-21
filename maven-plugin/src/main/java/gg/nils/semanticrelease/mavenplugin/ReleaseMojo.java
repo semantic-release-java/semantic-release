@@ -30,13 +30,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidTagNameException;
-import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.PushResult;
 
 import java.io.IOException;
 
@@ -65,27 +63,29 @@ public class ReleaseMojo extends AbstractMojo {
 
             SemanticReleaseConfig config = new DefaultSemanticReleaseConfig();
 
-            VersionControlProvider versionControlProvider = new GitVersionControlProvider(config, git);
+            VersionControlProvider provider = new GitVersionControlProvider(config, git);
 
-            if (!versionControlProvider.getCurrentBranch().getName().equals("master")
-                    && !versionControlProvider.getCurrentBranch().getName().equals("main")) {
+            if (!provider.getCurrentBranch().getName().equals("master")
+                    && !provider.getCurrentBranch().getName().equals("main")) {
                 throw new MojoFailureException("Only master and main branches can be released!");
             }
 
-            if (versionControlProvider.hasUncommittedChanges()) {
+            if (provider.hasUncommittedChanges()) {
                 throw new MojoFailureException("This branch has uncommitted changes, cannot release!");
             }
 
-            if (versionControlProvider.getLatestVersion().equals(versionControlProvider.getNextVersion())) {
+            if (provider.getLatestVersion().equals(provider.getNextVersion()) && provider.getLatestTag() != null) {
                 throw new MojoFailureException("There were no changes that would require a release!");
             }
 
             Ref ref = git.tag()
-                    .setName(versionControlProvider.getNextVersion().toString())
+                    .setName(provider.getNextVersion().toString())
                     .setAnnotated(false)
                     .call();
 
             logger.info("New version: " + ref.getName());
+
+            git.push().setPushTags().call();
         } catch (IOException | GitAPIException e) {
             e.printStackTrace();
         }
