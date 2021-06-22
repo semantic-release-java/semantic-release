@@ -17,6 +17,7 @@
 
 package gg.nils.semanticrelease.mavenplugin.resolver;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 
 public interface MavenRepositoryResolver {
@@ -24,4 +25,6 @@ public interface MavenRepositoryResolver {
     void resolve(Model startingPoint);
 
     boolean isWithinProject(Model model);
+
+    boolean isWithinProject(Dependency dependency);
 }

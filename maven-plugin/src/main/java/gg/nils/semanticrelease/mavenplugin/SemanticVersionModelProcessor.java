@@ -125,7 +125,7 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
             return model;
         }
 
-        this.logger.info("modify " + model.getGroupId() + ":" + model.getArtifactId() + " in " + source.getFile());
+        this.logger.debug("modify " + model.getGroupId() + ":" + model.getArtifactId() + " in " + source.getFile());
 
         if (this.finalVersion == null) {
             FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder()
@@ -144,13 +144,13 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
 
                 VersionControlProvider versionControlProvider = new GitVersionControlProvider(config, git);
 
-                this.logger.info("Current branch: " + versionControlProvider.getCurrentBranch());
-                this.logger.info("Actual version: " + model.getVersion());
-                this.logger.info("Latest tag: " + versionControlProvider.getLatestTag());
-                this.logger.info("Latest version: " + versionControlProvider.getLatestVersion());
-                this.logger.info("Next version: " + versionControlProvider.getNextVersion());
-                this.logger.info("Full version: " + versionControlProvider.getFullVersion());
-                this.logger.info("Full version w/o dirty: " + versionControlProvider.getFullVersionWithoutDirty());
+                this.logger.debug("Current branch: " + versionControlProvider.getCurrentBranch());
+                this.logger.debug("Actual version: " + model.getVersion());
+                this.logger.debug("Latest tag: " + versionControlProvider.getLatestTag());
+                this.logger.debug("Latest version: " + versionControlProvider.getLatestVersion());
+                this.logger.debug("Next version: " + versionControlProvider.getNextVersion());
+                this.logger.debug("Full version: " + versionControlProvider.getFullVersion());
+                this.logger.debug("Full version w/o dirty: " + versionControlProvider.getFullVersionWithoutDirty());
 
                 this.finalVersion = versionControlProvider.getFullVersionWithoutDirty();
             } catch (IOException e) {
@@ -172,7 +172,7 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
         }
 
         for (Dependency dependency : model.getDependencies()) {
-            if (!dependency.getGroupId().equals("gg.nils") && !dependency.getArtifactId().startsWith("semantic-release")) {
+            if(!this.mavenRepositoryResolver.isWithinProject(dependency)) {
                 continue;
             }
 
