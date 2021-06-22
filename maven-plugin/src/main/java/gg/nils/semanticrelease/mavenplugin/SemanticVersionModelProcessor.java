@@ -125,7 +125,7 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
             return model;
         }
 
-        this.logger.debug("modify " + model.getGroupId() + ":" + model.getArtifactId() + " in " + source.getFile());
+        this.logger.info("[" + model.getArtifactId() + "] modify " + model.getGroupId() + ":" + model.getArtifactId() + " in " + source.getFile());
 
         if (this.finalVersion == null) {
             FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder()
@@ -162,12 +162,12 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
         }
 
         if (model.getVersion() != null) {
-            this.logger.debug("Set version from " + model.getVersion() + " to " + this.finalVersion);
+            this.logger.info("[" + model.getArtifactId() + "] Set version from " + model.getVersion() + " to " + this.finalVersion);
             model.setVersion(this.finalVersion);
         }
 
         if (model.getParent() != null) {
-            this.logger.debug("Set parent version from " + model.getParent().getVersion() + " to " + this.finalVersion);
+            this.logger.info("[" + model.getArtifactId() + "] Set parent version from " + model.getParent().getVersion() + " to " + this.finalVersion);
             model.getParent().setVersion(this.finalVersion);
         }
 
@@ -176,7 +176,7 @@ public class SemanticVersionModelProcessor extends DefaultModelProcessor {
                 continue;
             }
 
-            this.logger.debug("Set dependency version from " + dependency.getVersion() + " to " + this.finalVersion);
+            this.logger.info("[" + model.getArtifactId() + "] Set dependency version from " + dependency.getVersion() + " to " + this.finalVersion);
             dependency.setVersion(this.finalVersion);
         }
 
