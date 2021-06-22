@@ -86,6 +86,11 @@ public class SemanticReleaseExtension extends AbstractMavenLifecycleParticipant 
 
         for (MavenProject project : session.getAllProjects()) {
             for (Dependency dependency : project.getDependencies()) {
+                if (dependency.getVersion().equals("${project.version}")) {
+                    dependency.setVersion(finalVersion);
+                    continue;
+                }
+
                 if(!gaList.contains(dependency.getGroupId() + ":" + dependency.getArtifactId()))
                     continue;
 
