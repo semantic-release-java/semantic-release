@@ -15,33 +15,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package gg.nils.semanticrelease.api.versioncontrol;
+package gg.nils.semanticrelease.mavenplugin.resolver;
 
-import gg.nils.semanticrelease.api.*;
+import org.apache.maven.model.Model;
 
-import java.util.List;
+public interface MavenRepositoryResolver {
 
-public interface VersionControlProvider {
+    void resolve(Model startingPoint);
 
-    List<RawCommit> getRawCommits();
-
-    List<RawCommit> getRawCommitsSince(Version version);
-
-    List<Commit> getCommitsSince(Version version);
-
-    List<Tag> getTags();
-
-    Tag getLatestTag();
-
-    Branch getCurrentBranch();
-
-    boolean hasUncommittedChanges();
-
-    Version getLatestVersion();
-
-    Version getNextVersion();
-
-    String getFullVersion();
-
-    String getFullVersionWithoutDirty();
+    boolean isWithinProject(Model model);
 }

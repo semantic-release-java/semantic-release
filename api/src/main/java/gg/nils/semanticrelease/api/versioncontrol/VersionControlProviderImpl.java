@@ -85,6 +85,17 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
 
     @Override
     public String getFullVersion() {
+        String version = this.getFullVersionWithoutDirty();
+
+        if(this.hasUncommittedChanges()) {
+            version += "-DIRTY";
+        }
+
+        return version;
+    }
+
+    @Override
+    public String getFullVersionWithoutDirty() {
         Version nextVersion = this.getNextVersion();
         Branch currentBranch = this.getCurrentBranch();
 
@@ -98,10 +109,6 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
             version += nextVersion.toString() + "-SNAPSHOT";
         } else {
             version += nextVersion.toString() + "-" + currentBranchName.replaceAll("/", "-");
-        }
-
-        if(this.hasUncommittedChanges()) {
-            version += "-DIRTY";
         }
 
         return version;
