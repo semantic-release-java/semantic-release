@@ -24,6 +24,7 @@ import gg.nils.semanticrelease.api.versioncontrol.git.GitVersionControlProvider;
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -34,6 +35,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component(role = AbstractMavenLifecycleParticipant.class, hint = "semantic-release")
 public class SemanticReleaseExtension extends AbstractMavenLifecycleParticipant {
@@ -73,8 +76,21 @@ public class SemanticReleaseExtension extends AbstractMavenLifecycleParticipant 
             throw new MavenExecutionException("Could not generate version...", e);
         }
 
+        List<String> gaList = new ArrayList<>();
+
         for (MavenProject project : session.getAllProjects()) {
             project.setVersion(finalVersion);
+
+            gaList.add(project.getGroupId() + ":" + project.getArtifactId());
+        }
+
+        for (MavenProject project : session.getAllProjects()) {
+            for (Dependency dependency : project.getDependencies()) {
+                if(!gaList.contains(dependency.getGroupId() + ":" + dependency.getArtifactId()))
+                    continue;
+
+                dependency.setVersion(finalVersion);
+            }
         }
 
         super.afterProjectsRead(session);
