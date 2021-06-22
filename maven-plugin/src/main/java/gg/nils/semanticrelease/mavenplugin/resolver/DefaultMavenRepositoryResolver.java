@@ -18,6 +18,7 @@
 package gg.nils.semanticrelease.mavenplugin.resolver;
 
 import gg.nils.semanticrelease.api.error.SemanticReleaseException;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.component.annotations.Component;
@@ -124,9 +125,23 @@ public class DefaultMavenRepositoryResolver implements MavenRepositoryResolver {
         return groupId + ":" + artifactId;
     }
 
+    private String getGA(Dependency dependency) {
+        String groupId = dependency.getGroupId();
+        String artifactId = dependency.getArtifactId();
+
+        return groupId + ":" + artifactId;
+    }
+
     @Override
     public boolean isWithinProject(Model model) {
         String ga = this.getGA(model);
+
+        return this.gaList.contains(ga);
+    }
+
+    @Override
+    public boolean isWithinProject(Dependency dependency) {
+        String ga = this.getGA(dependency);
 
         return this.gaList.contains(ga);
     }
