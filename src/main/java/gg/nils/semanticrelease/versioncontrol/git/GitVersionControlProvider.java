@@ -115,8 +115,6 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
 
             String version = this.extractVersion(call);
 
-            log.info("transformed describe result from {} to {}", call, version);
-
             Optional<Tag> optionalTag = this.getTags().stream()
                     .filter(tag -> tag.getName().equals(version))
                     .findFirst();
