@@ -17,7 +17,7 @@
 
 package gg.nils.semanticrelease;
 
-public interface Version {
+public interface Version extends Cloneable {
 
     Tag getTag();
 
@@ -38,4 +38,6 @@ public interface Version {
     void incMinor();
 
     void incPatch();
+
+    Version clone();
 }
