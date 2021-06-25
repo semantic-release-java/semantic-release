@@ -23,6 +23,7 @@ import gg.nils.semanticrelease.error.SemanticReleaseException;
 import gg.nils.semanticrelease.versioncontrol.VersionControlProviderImpl;
 import gg.nils.semanticrelease.versioncontrol.git.converter.*;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -36,6 +37,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 public class GitVersionControlProvider extends VersionControlProviderImpl {
 
     private final Git git;
@@ -111,15 +113,7 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
             if (call == null)
                 return null;
 
-            Matcher matcher = Pattern.compile("(.+)-(.+)-(.+)$").matcher(call);
-
-            String version;
-
-            if (!matcher.find()) {
-                version = call;
-            } else {
-                version = matcher.group(1);
-            }
+            String version = this.extractVersion(call);
 
             Optional<Tag> optionalTag = this.getTags().stream()
                     .filter(tag -> tag.getName().equals(version))
@@ -129,6 +123,22 @@ public class GitVersionControlProvider extends VersionControlProviderImpl {
         } catch (GitAPIException e) {
             throw new SemanticReleaseException("Could not get tags", e);
         }
+    }
+
+    private String extractVersion(String describeInput) {
+        Matcher matcher1 = Pattern.compile("(.+)-(.+)-(.+)$").matcher(describeInput);
+
+        if(matcher1.find()) {
+            return matcher1.group(1);
+        }
+
+        Matcher matcher2 = Pattern.compile("(.+)-([0-9a-f]{40})$").matcher(describeInput);
+
+        if(matcher2.find()) {
+            return matcher2.group(1);
+        }
+
+        return describeInput;
     }
 
     @Override

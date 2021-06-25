@@ -25,6 +25,8 @@ import gg.nils.semanticrelease.versioncontrol.converter.*;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class VersionControlProviderImpl implements VersionControlProvider {
 
@@ -105,7 +107,9 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
 
         String currentBranchName = currentBranch.getName();
 
-        if(currentBranchName.equals("master") || currentBranchName.equals("main")) {
+        Matcher matcher = Pattern.compile("^([0-9a-f]{40})$").matcher(currentBranchName);
+
+        if(matcher.find() || currentBranchName.equals("master") || currentBranchName.equals("main")) {
             version += nextVersion.toString();
         } else if(currentBranchName.equals("develop")) {
             version += nextVersion.toString() + "-SNAPSHOT";
