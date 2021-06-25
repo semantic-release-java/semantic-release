@@ -103,4 +103,9 @@ public class VersionImpl implements Version {
     public int hashCode() {
         return Objects.hash(this.tag, this.major, this.minor, this.patch);
     }
+
+    @Override
+    public Version clone() {
+        return new VersionImpl(this.tag, this.major, this.minor, this.patch);
+    }
 }

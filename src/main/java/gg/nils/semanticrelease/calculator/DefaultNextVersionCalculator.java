@@ -34,6 +34,8 @@ public class DefaultNextVersionCalculator implements NextVersionCalculator {
 
     @Override
     public Version calculate(Version latestVersion, List<Commit> commits) {
+        Version nextVersion = latestVersion.clone();
+
         int breakingChanges = 0;
         int features = 0;
         int patches = 0;
@@ -49,16 +51,16 @@ public class DefaultNextVersionCalculator implements NextVersionCalculator {
         }
 
         if (breakingChanges > 0) {
-            latestVersion.incMajor();
-            latestVersion.setMinor(0);
-            latestVersion.setPatch(0);
+            nextVersion.incMajor();
+            nextVersion.setMinor(0);
+            nextVersion.setPatch(0);
         } else if (features > 0) {
-            latestVersion.incMinor();
-            latestVersion.setPatch(0);
+            nextVersion.incMinor();
+            nextVersion.setPatch(0);
         } else if (patches > 0) {
-            latestVersion.incPatch();
+            nextVersion.incPatch();
         }
 
-        return latestVersion;
+        return nextVersion;
     }
 }
