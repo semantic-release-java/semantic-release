@@ -17,10 +17,7 @@
 
 package gg.nils.semanticrelease.versioncontrol;
 
-import gg.nils.semanticrelease.Branch;
-import gg.nils.semanticrelease.Commit;
-import gg.nils.semanticrelease.Tag;
-import gg.nils.semanticrelease.Version;
+import gg.nils.semanticrelease.*;
 import gg.nils.semanticrelease.calculator.NextVersionCalculator;
 import gg.nils.semanticrelease.calculator.DefaultNextVersionCalculator;
 import gg.nils.semanticrelease.config.SemanticReleaseConfig;
@@ -52,6 +49,11 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
         this.rawCommitToCommitConverter = new DefaultRawCommitToCommitConverter();
         this.rawCommitsToCommitsConverter = new DefaultRawCommitsToCommitsConverter(this.rawCommitToCommitConverter);
         this.nextVersionCalculator = new DefaultNextVersionCalculator(config);
+    }
+
+    @Override
+    public List<Commit> getCommits() {
+        return this.rawCommitsToCommitsConverter.convert(this.getRawCommits());
     }
 
     @Override
@@ -112,5 +114,23 @@ public abstract class VersionControlProviderImpl implements VersionControlProvid
         }
 
         return version;
+    }
+
+    @Override
+    public boolean canBeReleased() {
+        Tag latestTag = this.getLatestTag();
+
+        // Already has a tag
+        if (latestTag != null)
+            return !this.getLatestVersion().equals(this.getNextVersion());
+
+        // New version, check for feat or fix
+        Version tempVersion = new VersionImpl(null, 0, 0 ,0);
+
+        List<Commit> commits = this.getCommits();
+
+        Version calculatedVersion = this.nextVersionCalculator.calculate(tempVersion, commits);
+
+        return !tempVersion.equals(calculatedVersion);
     }
 }
