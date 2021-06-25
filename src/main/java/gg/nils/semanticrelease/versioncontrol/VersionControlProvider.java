@@ -27,6 +27,8 @@ public interface VersionControlProvider {
 
     List<RawCommit> getRawCommitsSince(Version version);
 
+    List<Commit> getCommits();
+
     List<Commit> getCommitsSince(Version version);
 
     List<Tag> getTags();
@@ -44,4 +46,6 @@ public interface VersionControlProvider {
     String getFullVersion();
 
     String getFullVersionWithoutDirty();
+
+    boolean canBeReleased();
 }
